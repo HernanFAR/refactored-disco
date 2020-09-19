@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="container-fluid">
     <div class="row bg-primary sticky-top">
       <div class="col-12">
         <Navbar />
@@ -10,9 +10,14 @@
         <Breadcrumb />
       </div>
     </div>
-    <div class="row bg-light">
+    <div class="row">
       <div class="col-12">
         <router-view />
+      </div>
+    </div>
+    <div class="row bg-footer">
+      <div class="col-12">
+        <Footer />
       </div>
     </div>
   </div>
@@ -21,11 +26,13 @@
 <script>
 import Navbar from "@/components/Nav.vue";
 import Breadcrumb from "@/components/Breadcrumb.vue";
+import Footer from "@/components/Footer.vue";
 
 export default {
   components: {
     Navbar,
-    Breadcrumb
+    Breadcrumb,
+    Footer
   },
   mounted() {}
 };
@@ -34,5 +41,8 @@ export default {
 <style lang="scss">
 .bg-breadcrumb {
   background-color: #e9ecef;
+}
+.bg-footer {
+  background-color: #2196f3 !important;
 }
 </style>

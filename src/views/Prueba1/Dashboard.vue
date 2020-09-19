@@ -1,9 +1,19 @@
 <template>
-  <div class="row bg-primary sticky-top">
-    <div class="col-12"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <AsideBar />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-export default {};
+import AsideBar from "@/components/Prueba1/Asidebar.vue";
+
+export default {
+  components: {
+    AsideBar
+  }
+};
 </script>

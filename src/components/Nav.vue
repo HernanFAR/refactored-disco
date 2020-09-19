@@ -15,12 +15,15 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <router-link class="nav-link" :class="is('Inicio')" to="/"
+          <router-link class="nav-link" :class="is('Home')" to="/"
             >Inicio</router-link
           >
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" :class="is('Prueba1')" to="/Prueba1"
+          <router-link
+            class="nav-link"
+            :class="is('Prueba1')"
+            to="/prueba1/friend"
             >Prueba 1</router-link
           >
         </li>

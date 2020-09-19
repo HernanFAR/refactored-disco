@@ -1,8 +1,13 @@
 <template>
   <div id="app">
-    <div class="row bg-dark shadow-sm sticky-top">
+    <div class="row bg-primary sticky-top">
       <div class="col-12">
         <Navbar />
+      </div>
+    </div>
+    <div class="row bg-breadcrumb">
+      <div class="col-12">
+        <Breadcrumb />
       </div>
     </div>
     <div class="row bg-light">
@@ -15,34 +20,19 @@
 
 <script>
 import Navbar from "@/components/Nav.vue";
+import Breadcrumb from "@/components/Breadcrumb.vue";
 
 export default {
   components: {
-    Navbar
+    Navbar,
+    Breadcrumb
   },
   mounted() {}
 };
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.bg-breadcrumb {
+  background-color: #e9ecef;
 }
 </style>

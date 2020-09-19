@@ -15,14 +15,14 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <router-link class="nav-link" :class="is('Home')" to="/"
+          <router-link class="nav-link" :class="isModuleRoute('home')" to="/"
             >Inicio</router-link
           >
         </li>
         <li class="nav-item">
           <router-link
             class="nav-link"
-            :class="is('Prueba1')"
+            :class="isModuleRoute('friend')"
             to="/prueba1/friend"
             >Prueba 1</router-link
           >
@@ -69,11 +69,11 @@ export default {
         }
       });
     },
-    is(id) {
-      let routeId = this.$route.meta.id;
+    isModuleRoute(module) {
+      let routeModule = this.$route.meta.module;
 
       return {
-        active: routeId == id
+        active: routeModule == module
       };
     }
   }

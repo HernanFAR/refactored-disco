@@ -19,7 +19,7 @@ const routes = [
     name: "Prueba 1: 22-09-2020",
     meta: {
       id: "Prueba1",
-      ubication: ["Prueba 1", "uwu"]
+      ubication: ["Prueba 1"]
     },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route

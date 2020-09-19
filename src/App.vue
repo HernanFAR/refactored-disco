@@ -5,7 +5,11 @@
         <Navbar />
       </div>
     </div>
-    <router-view />
+    <div class="row bg-light">
+      <div class="col-12">
+        <router-view />
+      </div>
+    </div>
   </div>
 </template>
 

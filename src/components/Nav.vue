@@ -15,15 +15,10 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <router-link class="nav-link" :class="isModuleRoute('home')" to="/"
-            >Inicio</router-link
-          >
+          <router-link class="nav-link" to="/">Inicio</router-link>
         </li>
         <li class="nav-item">
-          <router-link
-            class="nav-link"
-            :class="isModuleRoute('friend')"
-            to="/prueba1/friend"
+          <router-link class="nav-link" to="/prueba1/friend"
             >Prueba 1</router-link
           >
         </li>
@@ -68,16 +63,13 @@ export default {
           popup: "animate__animated animate__fadeOutUp"
         }
       });
-    },
-    isModuleRoute(module) {
-      let routeModule = this.$route.meta.module;
-
-      return {
-        active: routeModule == module
-      };
     }
   }
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.router-link-exact-active {
+  color: #fff !important;
+}
+</style>

@@ -8,17 +8,13 @@
           class="flex-md-column flex-row navbar-nav w-100 justify-content-between"
         >
           <li class="nav-item">
-            <a class="nav-link pl-0 text-nowrap" href="#">
+            <p class="nav-link pl-0 my-0 text-nowrap">
               <i class="fa fa-users fa-fw"></i>
               <span class="font-weight-bold"> {{ moduleName }}</span>
-            </a>
+            </p>
           </li>
           <li class="nav-item" v-for="(link, index) in links" :key="index">
-            <router-link
-              class="nav-link"
-              :class="isExactRoute(link.module, link.type)"
-              :to="link.url"
-            >
+            <router-link class="nav-link" :to="link.url">
               <i :class="link.icon"></i>
               <span class="d-none d-md-inline"> {{ link.name }}</span>
             </router-link>
@@ -37,18 +33,12 @@ export default {
     moduleName: String,
     // links es un arreglo de objetos, y estos tienen 3 atributos: La URL, el icono, el identificador y el nombre del link.
     links: Array
-  },
-  methods: {
-    isExactRoute(module, type) {
-      let routeModule = this.$route.meta.module;
-      let routeType = this.$route.meta.type;
-
-      let isMatch = routeModule === module && routeType === type;
-
-      return {
-        active: routeType === isMatch
-      };
-    }
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.router-link-exact-active {
+  color: #000 !important;
+}
+</style>

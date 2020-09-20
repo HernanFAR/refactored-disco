@@ -11,7 +11,7 @@ const HomeRoutes = [
     name: "Home",
     component: Home,
     meta: {
-      module: "home",
+      mod: "home",
       type: "home",
       ubication: ["Home"]
     }
@@ -24,7 +24,7 @@ const FriendRoutes = [
     path: "/prueba1/friend",
     name: "Dashboard amigos",
     meta: {
-      module: "friend",
+      mod: "friend",
       type: "dash",
       ubication: ["Prueba 1", "Amigos", "Dashboard"]
     },
@@ -35,7 +35,7 @@ const FriendRoutes = [
     path: "/prueba1/friend/listar",
     name: "Listar tus amigos",
     meta: {
-      module: "friend",
+      mod: "friend",
       type: "list",
       ubication: ["Prueba 1", "Amigos", "Listar"]
     },
@@ -46,7 +46,7 @@ const FriendRoutes = [
     path: "/prueba1/friend/agregar",
     name: "Agregar un amigo",
     meta: {
-      module: "friend",
+      mod: "friend",
       type: "add",
       ubication: ["Prueba 1", "Amigos", "Agregar"]
     },
@@ -57,7 +57,7 @@ const FriendRoutes = [
     path: "/prueba1/friend/:id/editar",
     name: "Editar un amigo",
     meta: {
-      module: "friend",
+      mod: "friend",
       type: "edit",
       ubication: ["Prueba 1", "Amigos", "Editar"]
     },
@@ -68,7 +68,7 @@ const FriendRoutes = [
     path: "/prueba1/friend/:id/detalle",
     name: "Detallar un amigo",
     meta: {
-      module: "friend",
+      mod: "friend",
       type: "detail",
       ubication: ["Prueba 1", "Amigos", "Detalle"]
     },
@@ -79,7 +79,7 @@ const FriendRoutes = [
     path: "/prueba1/friend/:id/eliminar",
     name: "Eliminar un amigo",
     meta: {
-      module: "friend",
+      mod: "friend",
       type: "delete",
       ubication: ["Prueba 1", "Amigos", "Eliminar"]
     },
@@ -88,8 +88,6 @@ const FriendRoutes = [
 ];
 
 const routes = HomeRoutes.concat(FriendRoutes);
-
-console.log(routes);
 
 const router = new VueRouter({
   mode: "history",

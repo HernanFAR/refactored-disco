@@ -271,6 +271,8 @@ export default {
         // return true;
         added = true;
 
+        this.friend.id = this.friends.length + 1;
+
         this.$swal({
           title: "Agregando amigo...",
           icon: "info",

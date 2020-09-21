@@ -1,4 +1,5 @@
 export default class Friend {
+  id;
   nombre;
   apellido;
   fechaNacimiento;
@@ -7,6 +8,7 @@ export default class Friend {
   idGenero;
 
   constructor() {
+    this.id = 0;
     this.nombre = "";
     this.apellido = "";
     this.fechaNacimiento = new Date();

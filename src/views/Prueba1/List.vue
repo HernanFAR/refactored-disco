@@ -1,30 +1,74 @@
 <template>
   <div class="container">
     <div class="row bg-light">
-      <div class="col-12 col-md-2 align-self-center">
+      <div class="col-12 col-md-2">
         <AsideBar moduleName="Amigos" :links="routes" />
       </div>
-      <div class="col-12 col-md-10"></div>
+      <div class="col-12 col-md-10 py-4">
+        <div class="row">
+          <div class="col-12 pb-3">
+            <p class="text-center h5">Vista de amigos agregados uwu</p>
+          </div>
+          <div class="col-12">
+            <table class="table table-bordered table-hover table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Rut</th>
+                  <th scope="col">Nombre completo</th>
+                  <th scope="col">Fecha nacimiento</th>
+                  <th scope="col">Genero</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(friend, index) in getFriendsDTO" :key="index">
+                  <th scope="row">{{ friend.rut }}</th>
+                  <td>{{ friend.nombreCompleto }}</td>
+                  <td>{{ friend.fechaNacimiento }}</td>
+                  <td>{{ friend.genero }}</td>
+                  <td>
+                    <router-link
+                      class="text-info"
+                      :to="'/prueba1/friend/' + friend.id + '/detalle'"
+                      ><i class="fas fa-search"></i
+                    ></router-link>
+                    -
+                    <router-link
+                      class="text-success"
+                      :to="'/prueba1/friend/' + friend.id + '/editar'"
+                      ><i class="fas fa-edit"></i
+                    ></router-link>
+                    -
+                    <a class="text-danger"><i class="fas fa-trash"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import AsideBar from "@/components/Prueba1/Asidebar.vue";
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 
 export default {
   components: {
     AsideBar
   },
   computed: {
-    ...mapState("friend", ["routes", "friends"])
+    ...mapState("friend", ["routes"]),
+    ...mapGetters("friend", ["getFriendsDTO"])
   },
   methods: {
-    ...mapActions("friend", ["getFriends"])
+    ...mapActions("friend", ["getFriends"]),
+    ...mapActions("gender", ["getGenders"])
   },
-  mounted() {
-    this.getFriends();
+  beforeMount() {
+    this.getGenders();
   }
 };
 </script>

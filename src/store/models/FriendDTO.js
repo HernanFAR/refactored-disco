@@ -1,19 +1,27 @@
 export default class Friend {
-  nombre;
-  apellido;
+  id;
+  nombreCompleto;
   fechaNacimiento;
   rut;
   email;
-  genero;
   idGenero;
+  genero;
 
-  constructor(nombre, apellido, fechaNacimiento, rut, email, genero, idGenero) {
-    this.nombre = nombre;
-    this.apellido = apellido;
+  constructor(
+    id,
+    nombreCompleto,
+    fechaNacimiento,
+    rut,
+    email,
+    idGenero,
+    genero
+  ) {
+    this.id = id;
+    this.nombreCompleto = nombreCompleto;
     this.fechaNacimiento = fechaNacimiento;
     this.rut = rut;
     this.email = email;
-    this.genero = genero;
     this.idGenero = idGenero;
+    this.genero = genero;
   }
 }

@@ -73,17 +73,6 @@ const FriendRoutes = [
       ubication: ["Prueba 1", "Amigos", "Detalle"]
     },
     component: () => import("../views/Prueba1/Detail.vue")
-  },
-  {
-    // eliminar amigo
-    path: "/prueba1/friend/:id/eliminar",
-    name: "Eliminar un amigo",
-    meta: {
-      mod: "friend",
-      type: "delete",
-      ubication: ["Prueba 1", "Amigos", "Eliminar"]
-    },
-    component: () => import("../views/Prueba1/Delete.vue")
   }
 ];
 

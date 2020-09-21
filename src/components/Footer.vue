@@ -27,7 +27,7 @@
 import FooterArticle from "@/components/FooterArticle.vue";
 
 export default {
-  name: "Breadcrumb",
+  name: "Footer",
   components: {
     FooterArticle
   },

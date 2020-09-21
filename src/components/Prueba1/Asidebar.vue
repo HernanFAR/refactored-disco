@@ -1,8 +1,6 @@
 <template>
   <aside class="flex-shrink-1 p-0">
-    <nav
-      class="navbar navbar-expand navbar-light flex-md-column flex-row align-items-start py-2"
-    >
+    <nav class="navbar navbar-expand navbar-light flex-md-column flex-row py-2">
       <div class="collapse navbar-collapse ">
         <ul
           class="flex-md-column flex-row navbar-nav w-100 justify-content-between"

@@ -8,14 +8,26 @@
       <input
         :type="type"
         class="form-control form-control-sm"
+        :class="hasErrors(value)"
         v-bind:value="value"
         v-on:input="$emit('input', $event.target.value)"
         :placeholder="placeholder"
       />
     </div>
-    <small v-if="helpText !== undefined" class="form-text text-muted">{{
-      helpText
-    }}</small>
+    <small
+      v-for="(item, index) in errorTexts"
+      :key="index"
+      class="form-text text-danger"
+    >
+      <p v-if="validations.$anyError && !validations[item.val]">
+        {{ item.descripcion }}
+      </p>
+    </small>
+    <small
+      v-if="helpText !== undefined && !validations.$anyError"
+      class="form-text text-muted"
+      >{{ helpText }}</small
+    >
   </div>
 </template>
 
@@ -44,7 +56,32 @@ export default {
     helpText: {
       type: String,
       required: false
+    },
+    validations: {
+      type: Object,
+      required: true
+    },
+    errorTexts: {
+      type: Array,
+      required: true
+    }
+  },
+  methods: {
+    hasErrors(value) {
+      return {
+        "is-invalid": this.validations.$anyError,
+        "is-valid": !this.validations.$anyError && !!value
+      };
     }
   }
 };
 </script>
+
+<style lang="scss">
+.is-invalid {
+  border-color: red;
+}
+.is-valid {
+  border-color: green;
+}
+</style>

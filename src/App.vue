@@ -10,7 +10,7 @@
         <Breadcrumb />
       </div>
     </div>
-    <div class="row">
+    <div class="row bg-light">
       <div class="col-12">
         <router-view />
       </div>
@@ -27,6 +27,7 @@
 import Navbar from "@/components/Nav.vue";
 import Breadcrumb from "@/components/Breadcrumb.vue";
 import Footer from "@/components/Footer.vue";
+import { mapActions } from "vuex";
 
 export default {
   components: {
@@ -34,7 +35,12 @@ export default {
     Breadcrumb,
     Footer
   },
-  mounted() {}
+  methods: {
+    ...mapActions("storage", ["initStorage"])
+  },
+  mounted() {
+    this.initStorage();
+  }
 };
 </script>
 

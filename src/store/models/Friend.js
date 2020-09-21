@@ -4,14 +4,14 @@ export default class Friend {
   fechaNacimiento;
   rut;
   email;
-  genero;
+  idGenero;
 
-  constructor(nombre, apellido, fechaNacimiento, rut, email, genero) {
-    this.nombre = nombre;
-    this.apellido = apellido;
-    this.fechaNacimiento = fechaNacimiento;
-    this.rut = rut;
-    this.email = email;
-    this.genero = genero;
+  constructor() {
+    this.nombre = "";
+    this.apellido = "";
+    this.fechaNacimiento = new Date();
+    this.rut = "";
+    this.email = "";
+    this.idGenero = 0;
   }
 }

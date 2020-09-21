@@ -17,7 +17,7 @@
         />
       </div>
     </div>
-    <div class="text-center py-3 bg-primary">
+    <div class="text-center text-white py-3 bg-primary">
       <p class="my-0"><em>Al ver esto, Jesus quedó</em></p>
     </div>
   </footer>

@@ -10,9 +10,38 @@ export default {
   namespaced: true,
   state: {
     routes: friendRoutes,
-    friend: []
+    friends: [],
+    friend: {}
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    setFriends(state, payload) {
+      state.friends = payload;
+    },
+    setFriend(state, payload) {
+      state.friend = payload;
+    }
+  },
+  actions: {
+    getFriends({ commit }) {
+      let friendsLocal = JSON.parse(localStorage.getItem("friends"));
+
+      commit("setFriends", friendsLocal);
+    },
+    getFriend({ commit }, rut) {
+      let friend = JSON.parse(localStorage.getItem("friends"));
+
+      friend.filter(f => f.rut === rut);
+
+      commit("setFriend", friend[0]);
+    },
+    // eslint-disable-next-line
+    addFriend ({ }, friend) {
+      let friends = JSON.parse(localStorage.getItem("friends"));
+
+      friends.push(friend);
+
+      localStorage.setItem("friends", JSON.stringify(friends));
+    }
+  },
   modules: {}
 };

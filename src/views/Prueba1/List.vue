@@ -1,23 +1,30 @@
 <template>
   <div class="container">
-    <div class="row">
-      <div class="col-12">
+    <div class="row bg-light">
+      <div class="col-12 col-md-2 align-self-center">
         <AsideBar moduleName="Amigos" :links="routes" />
       </div>
+      <div class="col-12 col-md-10"></div>
     </div>
   </div>
 </template>
 
 <script>
 import AsideBar from "@/components/Prueba1/Asidebar.vue";
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   components: {
     AsideBar
   },
   computed: {
-    ...mapState("friend", ["routes"])
+    ...mapState("friend", ["routes", "friends"])
+  },
+  methods: {
+    ...mapActions("friend", ["getFriends"])
+  },
+  mounted() {
+    this.getFriends();
   }
 };
 </script>

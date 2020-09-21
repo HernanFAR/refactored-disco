@@ -1,9 +1,10 @@
 <template>
   <div class="container">
-    <div class="row">
-      <div class="col-12">
+    <div class="row bg-light">
+      <div class="col-12 col-md-2 align-self-center">
         <AsideBar moduleName="Amigos" :links="routes" />
       </div>
+      <div class="col-12 col-md-10"></div>
     </div>
   </div>
 </template>

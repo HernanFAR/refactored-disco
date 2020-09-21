@@ -9,9 +9,19 @@ let genders = [
 export default {
   namespaced: true,
   state: {
-    generos: genders
+    generos: []
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    setGenders(state, payload) {
+      state.generos = payload;
+    }
+  },
+  actions: {
+    getGenders({ commit }) {
+      let gendersLocal = genders;
+
+      commit("setGenders", gendersLocal);
+    }
+  },
   modules: {}
 };

@@ -1,5 +1,5 @@
 <template>
-  <aside class="col-12 col-md-2 p-0 bg-light flex-shrink-1">
+  <aside class="flex-shrink-1 p-0">
     <nav
       class="navbar navbar-expand navbar-light flex-md-column flex-row align-items-start py-2"
     >

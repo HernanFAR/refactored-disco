@@ -7,10 +7,12 @@
       <div class="col-12 col-md-10 py-4">
         <div class="row">
           <div class="col-12 pb-3">
-            <p class="text-center h5">Vista de amigos agregados uwu</p>
+            <p class="text-center h5">{{ $route.name }}</p>
           </div>
           <div class="col-12">
-            <table class="table table-bordered table-hover table-striped">
+            <table
+              class="table table-responsive-md table-bordered table-hover table-striped"
+            >
               <thead>
                 <tr>
                   <th scope="col">Rut</th>
@@ -39,7 +41,9 @@
                       ><i class="fas fa-edit"></i
                     ></router-link>
                     -
-                    <a class="text-danger"><i class="fas fa-trash"></i></a>
+                    <a class="text-danger" @click="dalete(friend.id)"
+                      ><i class="fas fa-trash"></i
+                    ></a>
                   </td>
                 </tr>
               </tbody>
@@ -60,14 +64,32 @@ export default {
     AsideBar
   },
   computed: {
-    ...mapState("friend", ["routes"]),
+    ...mapState("friend", ["routes", "friends"]),
     ...mapGetters("friend", ["getFriendsDTO"])
   },
   methods: {
-    ...mapActions("friend", ["getFriends"]),
-    ...mapActions("gender", ["getGenders"])
+    ...mapActions("friend", ["getFriends", "deleteFriend"]),
+    ...mapActions("gender", ["getGenders"]),
+    dalete(id) {
+      this.$swal({
+        title: "¿Quieres eliminar a este amigo?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Eliminar",
+        denyButtonText: `No eliminar`,
+        icon: "danger"
+      }).then(result => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          this.$swal("Amigo eliminado", "Exito", "success");
+          this.deleteFriend(id);
+          this.getFriends();
+        }
+      });
+    }
   },
   beforeMount() {
+    this.getFriends();
     this.getGenders();
   }
 };

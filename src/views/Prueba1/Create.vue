@@ -7,7 +7,7 @@
       <div class="col-12 col-md-10">
         <form class="my-3 row" @submit="checkForm">
           <div class="col-12 py-2">
-            <p class="text-center h5">Formulario de agregado de amigos :D</p>
+            <p class="text-center h5">{{ $route.name }}</p>
           </div>
           <div class="col-12 col-md-6 px-0 px-md-5">
             <Input
@@ -194,6 +194,8 @@ export default {
       rut: {
         required,
         validRut(value) {
+          if (!value) return true;
+
           let rutSplitted = value.split("-");
 
           if (rutSplitted.length < 2) return false;
@@ -259,6 +261,9 @@ export default {
       );
 
       return genders;
+    },
+    hasErrors() {
+      return this.$v.$error || this.$v.$anyError || this.$v.$invalid;
     }
   },
   methods: {
@@ -267,22 +272,19 @@ export default {
     checkForm(e) {
       let added = false;
 
-      if (!this.$v.$invalid || this.$v.$anyError) {
-        // return true;
+      this.$swal({
+        title: "Agregando amigo...",
+        icon: "info",
+        showClass: {
+          popup: "animate__animated animate__fadeInDown"
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp"
+        }
+      });
+
+      if (!this.hasErrors) {
         added = true;
-
-        this.friend.id = this.friends.length + 1;
-
-        this.$swal({
-          title: "Agregando amigo...",
-          icon: "info",
-          showClass: {
-            popup: "animate__animated animate__fadeInDown"
-          },
-          hideClass: {
-            popup: "animate__animated animate__fadeOutUp"
-          }
-        });
 
         this.addFriend(this.friend);
       }
@@ -312,6 +314,8 @@ export default {
         });
 
       this.getFriends();
+
+      this.clearForm();
 
       e.preventDefault();
     },

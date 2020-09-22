@@ -28,10 +28,10 @@ export default {
 
       commit("setFriends", friendsLocal);
     },
-    getFriend({ commit }, rut) {
+    getFriend({ commit }, id) {
       let friend = JSON.parse(localStorage.getItem("friends"));
 
-      friend.filter(f => f.rut === rut);
+      friend.filter(f => f.id === id);
 
       commit("setFriend", friend[0]);
     },
@@ -39,20 +39,33 @@ export default {
     addFriend ({ }, friend) {
       let friends = JSON.parse(localStorage.getItem("friends"));
 
+      let max = 0;
+
+      friends.forEach(f => {
+        if (f.id > max) max = f.id;
+      });
+
+      friends.id = max++;
+
       friends.push(friend);
 
       localStorage.setItem("friends", JSON.stringify(friends));
+    },
+    // eslint-disable-next-line
+    deleteFriend ({ }, id) {
+      let friends = JSON.parse(localStorage.getItem("friends"));
+
+      let friendWasntDeleted = friends.filter(f => f.id != id);
+
+      localStorage.setItem("friends", JSON.stringify(friendWasntDeleted));
     }
   },
   getters: {
     // eslint-disable-next-line
     getFriendsDTO(state, getters, rootState) {
       let friendsDTO = [];
-      let friendsLocal = JSON.parse(localStorage.getItem("friends"));
 
-      console.log(rootState);
-
-      friendsLocal.forEach(f => {
+      state.friends.forEach(f => {
         let id = f.id;
         let nombreCompleto = f.nombre + " " + f.apellido;
         let nacimiento = new Date(f.fechaNacimiento);
@@ -83,7 +96,39 @@ export default {
       });
 
       return friendsDTO;
+    },
+    getFriendDTO: (state, getters, rootState) => id => {
+      let friendsLocal = JSON.parse(localStorage.getItem("friends"));
+
+      let friend = friendsLocal.filter(f => f.id == id)[0];
+
+      let idFriend = friend.id;
+      let nombreCompleto = friend.nombre + " " + friend.apellido;
+      let nacimiento = new Date(friend.fechaNacimiento);
+      let fechaNacimiento =
+        nacimiento.getDate() +
+        "/" +
+        (nacimiento.getMonth() + 1) +
+        "/" +
+        nacimiento.getFullYear();
+      let rut = friend.rut;
+      let email = friend.email;
+      let idGenero = friend.idGenero;
+      let genero = rootState.gender.generos.filter(
+        g => g.idGenero === friend.idGenero
+      )[0].descripcion;
+
+      let friendDTO = new FriendDTO(
+        idFriend,
+        nombreCompleto,
+        fechaNacimiento,
+        rut,
+        email,
+        idGenero,
+        genero
+      );
+
+      return friendDTO;
     }
-  },
-  modules: {}
+  }
 };

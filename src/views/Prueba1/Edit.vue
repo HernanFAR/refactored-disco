@@ -13,22 +13,22 @@
             <Input
               text="Nombre"
               icon="fas fa-address-book"
-              v-model="$v.friend.nombre.$model"
+              v-model="$v.friendToEdit.nombre.$model"
               type="text"
               placeholder="Nombre de tu amigo"
               helpText="Introduce aca el nombre de tu amigo :)"
-              :validations="$v.friend.nombre"
+              :validations="$v.friendToEdit.nombre"
               :errorTexts="friendVals.nombre"
             />
 
             <Input
               text="Apellido"
               icon="far fa-address-book"
-              v-model="$v.friend.apellido.$model"
+              v-model="$v.friendToEdit.apellido.$model"
               type="text"
               placeholder="Apellido de tu amigo"
               helpText="Introduce aca el apellido de tu amigo :)"
-              :validations="$v.friend.apellido"
+              :validations="$v.friendToEdit.apellido"
               :errorTexts="friendVals.apellido"
             />
 
@@ -39,7 +39,7 @@
               @dateTime="setDate($event)"
               :options="options"
               helpText="Fecha de nacimiento del compa"
-              :validations="$v.friend.fechaNacimiento"
+              :validations="$v.friendToEdit.fechaNacimiento"
               :errorTexts="friendVals.fechaNacimiento"
             />
           </div>
@@ -47,41 +47,44 @@
             <Input
               text="Rut"
               icon="fas fa-id-card"
-              v-model="$v.friend.rut.$model"
+              v-model="$v.friendToEdit.rut.$model"
               type="text"
               placeholder="Rut de tu compa"
               helpText="Pon aca el rut de tu compa. Formato: 12345678-9 :)"
-              :validations="$v.friend.rut"
+              :validations="$v.friendToEdit.rut"
               :errorTexts="friendVals.rut"
             />
 
             <Input
               text="Email"
               icon="fas fa-envelope"
-              v-model="$v.friend.email.$model"
+              v-model="$v.friendToEdit.email.$model"
               type="email"
               placeholder="Email del compañero"
               helpText="Correo electronico del compañero"
-              :validations="$v.friend.email"
+              :validations="$v.friendToEdit.email"
               :errorTexts="friendVals.email"
             />
 
             <Selecter
               text="Genero"
               :icon="iconGender"
-              v-model.number="$v.friend.idGenero.$model"
+              :selected="friendToEdit.idGenero"
+              v-model.number="$v.friendToEdit.idGenero.$model"
               :selections="genders"
               helpText="Genero del compa"
-              :validations="$v.friend.idGenero"
+              :validations="$v.friendToEdit.idGenero"
               :errorTexts="friendVals.idGenero"
             />
           </div>
 
           <div class="col-12 text-center pt-4">
             <div class="btn-group" role="group">
-              <a @click="clearForm()" class="btn btn-warning">Limpiar datos</a>
+              <a @click="backToOriginal()" class="btn btn-warning"
+                >Volver al original</a
+              >
               <button class="btn btn-success" type="submit">
-                Agregar usuario
+                Editar usuario
               </button>
             </div>
           </div>
@@ -120,7 +123,7 @@ export default {
   data() {
     return {
       date: new Date(),
-      friend: new Friend(),
+      friendToEdit: new Friend(),
       options: {
         format: "YYYY/MM/DD",
         useCurrent: false,
@@ -181,7 +184,7 @@ export default {
     };
   },
   validations: {
-    friend: {
+    friendToEdit: {
       nombre: {
         required
       },
@@ -238,7 +241,7 @@ export default {
     }
   },
   computed: {
-    ...mapState("friend", ["routes", "friends"]),
+    ...mapState("friend", ["routes", "friend", "friends"]),
     ...mapState("gender", ["generos"]),
     iconGender() {
       let icon = "";
@@ -267,13 +270,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions("friend", ["getFriends", "addFriend"]),
+    ...mapActions("friend", ["getFriend", "editFriend", "getFriends"]),
     ...mapActions("gender", ["getGenders"]),
     checkForm(e) {
       let added = false;
 
       this.$swal({
-        title: "Agregando amigo...",
+        title: "editando amigo...",
         icon: "info",
         showClass: {
           popup: "animate__animated animate__fadeInDown"
@@ -286,12 +289,12 @@ export default {
       if (!this.hasErrors) {
         added = true;
 
-        this.addFriend(this.friend);
+        this.editFriend(this.friendToEdit);
       }
 
       if (added)
         this.$swal({
-          title: "Amigo agregado :)",
+          title: "Amigo editando :)",
           icon: "info",
           showClass: {
             popup: "animate__animated animate__fadeInDown"
@@ -302,7 +305,7 @@ export default {
         });
       else
         this.$swal({
-          title: "El amigo no fue agregado amigo...",
+          title: "El amigo no fue edito, amigo...",
           text: "El modelo no es valido",
           icon: "info",
           showClass: {
@@ -313,16 +316,19 @@ export default {
           }
         });
 
-      this.getFriends();
-
-      this.clearForm();
-
       e.preventDefault();
     },
-    clearForm() {
-      this.friend = new Friend();
+    backToOriginal() {
+      console.log("back");
+      this.friendToEdit.id = this.friend.id;
+      this.friendToEdit.nombre = this.friend.nombre;
+      this.friendToEdit.apellido = this.friend.apellido;
+      this.friendToEdit.fechaNacimiento = new Date(this.friend.fechaNacimiento);
+      this.friendToEdit.rut = this.friend.rut;
+      this.friendToEdit.email = this.friend.email;
+      this.friendToEdit.idGenero = this.friend.idGenero;
 
-      this.$refs["datetimer"].value = undefined;
+      this.$refs["datetimer"].value = new Date(this.friend.fechaNacimiento);
     },
     setDate(newDate) {
       this.date = newDate;
@@ -330,13 +336,24 @@ export default {
   },
   watch: {
     date(_new) {
-      this.friend.fechaNacimiento = _new;
+      this.friendToEdit.fechaNacimiento = _new;
     }
   },
   mounted() {
+    this.getFriend(this.$route);
+
+    this.friendToEdit.id = this.friend.id;
+    this.friendToEdit.nombre = this.friend.nombre;
+    this.friendToEdit.apellido = this.friend.apellido;
+    this.friendToEdit.fechaNacimiento = new Date(this.friend.fechaNacimiento);
+    this.friendToEdit.rut = this.friend.rut;
+    this.friendToEdit.email = this.friend.email;
+    this.friendToEdit.idGenero = this.friend.idGenero;
+
+    this.$refs["datetimer"].value = new Date(this.friend.fechaNacimiento);
+
     this.getFriends();
     this.getGenders();
-    console.log(this.$route);
   }
 };
 </script>

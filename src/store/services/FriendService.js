@@ -52,6 +52,22 @@ export default {
       localStorage.setItem("friends", JSON.stringify(friends));
     },
     // eslint-disable-next-line
+    editFriend ({ }, friend) {
+      let friends = JSON.parse(localStorage.getItem("friends"));
+
+      let i = 0;
+
+      for (i = 0; i < friends.length; i++) {
+        if (friends[i].id === friend.id) break;
+
+        i++;
+      }
+
+      friends[i] = friend;
+
+      localStorage.setItem("friends", JSON.stringify(friends));
+    },
+    // eslint-disable-next-line
     deleteFriend ({ }, id) {
       let friends = JSON.parse(localStorage.getItem("friends"));
 

@@ -97,6 +97,7 @@ export default {
           this.$swal("Amigo eliminado", "Exito", "success");
           this.deleteFriend(id);
           this.getFriends();
+          this.$router.push({ path: "/prueba1/friend/listar" });
         }
       });
     }

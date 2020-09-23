@@ -12,10 +12,11 @@
         v-bind:value="value"
         v-on:input="$emit('input', $event.target.value)"
       >
-        <option :value="0" selected disable>Seleccione</option>
+        <option :value="0" :selected="selected == 0" disable>Seleccione</option>
         <option
           v-for="(item, index) in selections"
           :key="index"
+          :selected="selected == item.id"
           :value="item.id"
           >{{ item.descripcion }}</option
         >
@@ -67,6 +68,10 @@ export default {
     errorTexts: {
       type: Array,
       required: true
+    },
+    selected: {
+      type: Number,
+      default: 0
     }
   },
   methods: {

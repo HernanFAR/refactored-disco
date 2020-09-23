@@ -45,7 +45,7 @@ export default {
         if (f.id > max) max = f.id;
       });
 
-      friends.id = max++;
+      friend.id = max + 1;
 
       friends.push(friend);
 

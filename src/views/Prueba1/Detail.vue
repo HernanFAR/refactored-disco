@@ -52,7 +52,7 @@
               <button class="btn btn-warning">
                 Editar usuario
               </button>
-              <button class="btn btn-danger">
+              <button class="btn btn-danger" @click="dalete(friendDTO.id)">
                 Borrar usuario
               </button>
             </div>
@@ -82,7 +82,24 @@ export default {
   },
   methods: {
     ...mapActions("gender", ["getGenders"]),
-    ...mapActions("friend", ["getFriends"])
+    ...mapActions("friend", ["getFriends", "deleteFriend"]),
+    dalete(id) {
+      this.$swal({
+        title: "¿Quieres eliminar a este amigo?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Eliminar",
+        denyButtonText: `No eliminar`,
+        icon: "warning"
+      }).then(result => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          this.$swal("Amigo eliminado", "Exito", "success");
+          this.deleteFriend(id);
+          this.getFriends();
+        }
+      });
+    }
   },
   beforeMount() {
     this.getFriends();

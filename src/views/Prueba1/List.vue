@@ -77,13 +77,14 @@ export default {
         showCancelButton: true,
         confirmButtonText: "Eliminar",
         denyButtonText: `No eliminar`,
-        icon: "danger"
+        icon: "warning"
       }).then(result => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           this.$swal("Amigo eliminado", "Exito", "success");
           this.deleteFriend(id);
           this.getFriends();
+          this.$router.push({ path: "/prueba1/friend/listar" });
         }
       });
     }

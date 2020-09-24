@@ -68,7 +68,7 @@ export default {
     ...mapGetters("friend", ["getFriendsDTO"])
   },
   methods: {
-    ...mapActions("friend", ["getFriends", "deleteFriend"]),
+    ...mapActions("friend", ["getFriends", "deleteFriend", "getDeleted"]),
     ...mapActions("gender", ["getGenders"]),
     dalete(id) {
       this.$swal({
@@ -82,6 +82,7 @@ export default {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           this.$swal("Amigo eliminado", "Exito", "success");
+          this.getDeleted();
           this.deleteFriend(id);
           this.getFriends();
         }

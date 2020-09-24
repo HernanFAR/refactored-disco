@@ -12,14 +12,33 @@ export default {
   state: {
     routes: friendRoutes,
     friends: [],
-    friend: {}
+    friend: {},
+    added: 0,
+    deleted: 0
   },
   mutations: {
     setFriends(state, payload) {
       state.friends = payload;
+      localStorage.setItem("friends", JSON.stringify(payload));
     },
     setFriend(state, payload) {
       state.friend = payload;
+    },
+    setAdded(state, payload) {
+      state.added = payload;
+    },
+    setDeleted(state, payload) {
+      state.deleted = payload;
+    },
+    incrementAdded(state) {
+      state.added = state.added + 1;
+
+      localStorage.setItem("added", JSON.stringify(state.added));
+    },
+    incrementDeleted(state) {
+      state.deleted = state.deleted + 1;
+
+      localStorage.setItem("deleted", JSON.stringify(state.deleted));
     }
   },
   actions: {
@@ -35,8 +54,17 @@ export default {
 
       commit("setFriend", friend[0]);
     },
-    // eslint-disable-next-line
-    addFriend ({ }, friend) {
+    getAdded({ commit }) {
+      let added = JSON.parse(localStorage.getItem("added"));
+
+      commit("setAdded", added);
+    },
+    getDeleted({ commit }) {
+      let deleted = JSON.parse(localStorage.getItem("deleted"));
+
+      commit("setDeleted", deleted);
+    },
+    addFriend({ commit }, friend) {
       let friends = JSON.parse(localStorage.getItem("friends"));
 
       let max = 0;
@@ -49,10 +77,10 @@ export default {
 
       friends.push(friend);
 
-      localStorage.setItem("friends", JSON.stringify(friends));
+      commit("incrementAdded");
+      commit("setFriends", friends);
     },
-    // eslint-disable-next-line
-    editFriend ({ }, friend) {
+    editFriend({ commit }, friend) {
       let friends = JSON.parse(localStorage.getItem("friends"));
 
       let i = 0;
@@ -65,15 +93,16 @@ export default {
 
       friends[i] = friend;
 
-      localStorage.setItem("friends", JSON.stringify(friends));
+      commit("setFriends", friends);
     },
     // eslint-disable-next-line
-    deleteFriend ({ }, id) {
+    deleteFriend ({ commit }, id) {
       let friends = JSON.parse(localStorage.getItem("friends"));
 
       let friendWasntDeleted = friends.filter(f => f.id != id);
 
-      localStorage.setItem("friends", JSON.stringify(friendWasntDeleted));
+      commit("incrementDeleted");
+      commit("setFriends", friendWasntDeleted);
     }
   },
   getters: {

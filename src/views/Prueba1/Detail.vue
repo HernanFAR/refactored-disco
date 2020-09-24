@@ -82,7 +82,7 @@ export default {
   },
   methods: {
     ...mapActions("gender", ["getGenders"]),
-    ...mapActions("friend", ["getFriends", "deleteFriend"]),
+    ...mapActions("friend", ["getFriends", "deleteFriend", "getDeleted"]),
     dalete(id) {
       this.$swal({
         title: "¿Quieres eliminar a este amigo?",
@@ -95,6 +95,7 @@ export default {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           this.$swal("Amigo eliminado", "Exito", "success");
+          this.getDeleted();
           this.deleteFriend(id);
           this.getFriends();
           this.$router.push({ path: "/prueba1/friend/listar" });

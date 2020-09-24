@@ -267,7 +267,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("friend", ["getFriends", "addFriend"]),
+    ...mapActions("friend", ["getFriends", "addFriend", "getAdded"]),
     ...mapActions("gender", ["getGenders"]),
     checkForm(e) {
       let added = false;
@@ -336,6 +336,7 @@ export default {
   mounted() {
     this.getFriends();
     this.getGenders();
+    this.getAdded();
   }
 };
 </script>

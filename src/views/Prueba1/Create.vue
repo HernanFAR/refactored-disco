@@ -109,6 +109,7 @@ import { mapActions, mapState } from "vuex";
 
 // Validaciones
 import { required, email } from "vuelidate/lib/validators";
+import validRut from "@/store/models/Rut.js";
 
 export default {
   components: {
@@ -193,37 +194,7 @@ export default {
       },
       rut: {
         required,
-        validRut(value) {
-          if (!value) return true;
-
-          let rutSplitted = value.split("-");
-
-          if (rutSplitted.length < 2) return false;
-
-          let number = rutSplitted[0];
-          let digit = rutSplitted[1];
-
-          let sum = 0;
-          let multiply = 2;
-
-          for (let i = 1; i <= number.length; i++) {
-            let index = multiply * value.charAt(number.length - i);
-
-            sum = sum + index;
-
-            if (multiply < 7) multiply = multiply + 1;
-            else multiply = 2;
-          }
-
-          let awaitedDigit = 11 - (sum % 11);
-
-          digit = digit == "K" ? 10 : digit;
-          digit = digit == 0 ? 11 : digit;
-
-          if (awaitedDigit != digit) return false;
-
-          return true;
-        }
+        validRut
       },
       email: {
         required,
